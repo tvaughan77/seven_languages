@@ -1,0 +1,9 @@
+package com.opower
+
+/**
+ * Hello world!
+ *
+ */
+object App extends Application {
+  println( "Hello World!" );
+}
