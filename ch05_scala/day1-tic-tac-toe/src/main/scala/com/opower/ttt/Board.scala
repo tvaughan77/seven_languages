@@ -8,8 +8,6 @@ import com.opower.ttt.CellState._
  */
 class Board(board: Array[Array[CellState]]) {
   
-  
-  
   require(board.length == Board.DIM)
   require(board(0).length == Board.DIM)
   
@@ -44,7 +42,6 @@ object Board {
    * Converts a single var-arg list of {@code CellState}s to a 2-D array of dimension Board.DIM x Board.DIM 
    */
   private def convertCellsListTo2DimArray(cells: CellState*) = {
-    println("The length of the cells is " + cells.length)
     require(cells.length == DIM * DIM)
     
     val board = Array.fill(DIM, DIM)(CellState.BLANK)
