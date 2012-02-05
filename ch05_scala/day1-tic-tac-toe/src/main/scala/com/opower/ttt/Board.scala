@@ -17,9 +17,30 @@ class Board(state: Array[Array[CellState]]) {
   
   def at(x: Int, y: Int) : CellState = state(x)(y)
   
-    
+  
+  /*
+   * True, if any row in our state is considered to be a "winning tranche" (see {@code anyTrancheWin})
+   */
   def anyRowWin(player: CellState) = {
     state exists (row => anyTrancheWin(player, row))
+  }
+  
+  /*
+   * True, if any column in our state is considered to be a "winning tranche" (see {@code anyTrancheWin})
+   */
+  def anyColWin(player: CellState) = {
+    val inverse = Board.inverseMatrix(state)
+    inverse exists(row => anyTrancheWin(player, row))
+  }
+  
+  /*
+   * True if either diagnoal in our state is considered to be a "winning tranche" (see {@code anyTrancheWin})
+   */
+  def anyDiagWin(player: CellState) = {
+    val forwardSlash = Array(at(0,0), at(1,1), at(2,2))
+    val backSlash = Array(at(0,2), at(1,1), at(2,0))
+    
+    anyTrancheWin(player, forwardSlash) || anyTrancheWin(player, backSlash)
   }
   
   /*
@@ -60,5 +81,20 @@ object Board {
     // iterator.toArray turns the Iterator into an array, so now we've got type Array[List[CellState]]
     // then we map the Array[List[CellState]] to the .toArray method to get our expected type of Array[Array[CellState]]
     cells.grouped(DIM).toArray map (_.toArray)
+  }
+  
+  /**
+   * Inverts a 2D matrix such that for every matrix[m][n] the resulting matrix contains the value at [n][m]
+   * 
+   * FIXME - how to make this generic with parameterized types and not assuming it's a nXn board ?
+   */
+  def inverseMatrix(matrix : Array[Array[CellState]]) : Array[Array[CellState]] = {
+    val inverse = Array.fill(DIM, DIM)(CellState.BLANK)
+    for(i <- 0 until matrix.length) {
+      for(j <- 0 until matrix.length) {
+        inverse(i)(j) = matrix(j)(i)
+      }
+    }
+    inverse
   }
 }
