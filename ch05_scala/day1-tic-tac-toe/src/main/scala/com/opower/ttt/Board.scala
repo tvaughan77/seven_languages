@@ -37,14 +37,7 @@ object Board {
    * Converts a signle var-arg list of Strings into a {@code List} of {@code CellState}s
    */  
   private def stringsToCells(strings: String*) = {
-    require(strings.length == DIM * DIM)
-    
-    val cells = Array.fill(strings.length)(CellState.BLANK)
-    for(i <- 0 until strings.length) {
-      cells(i) = CellState.withName(strings(i))
-    }
-    
-    cells
+    strings map (CellState.withName(_))
   }
   
   /*
