@@ -17,6 +17,12 @@ class Board(state: Array[Array[CellState]]) {
   
   def at(x: Int, y: Int) : CellState = state(x)(y)
   
+  /*
+   * Checks to see if the board is in a winning state for player {@code player}
+   */
+  def anyBoardWin(player: CellState) = {
+    anyRowWin(player) || anyColWin(player) || anyDiagWin(player)
+  }
   
   /*
    * True, if any row in our state is considered to be a "winning tranche" (see {@code anyTrancheWin})

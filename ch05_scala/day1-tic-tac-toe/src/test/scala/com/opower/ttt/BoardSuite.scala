@@ -102,4 +102,10 @@ class BoardSuite extends FunSuite {
     assertTrue(board.anyDiagWin(X))
     assertFalse(board.anyDiagWin(O))
   }
+  
+  test("anyBoardWin with player X winning on both a backwards diagonal and right column") {
+    val board = Board.fromCells(O, O, X, O, X, X, X, O, X)
+    assertTrue(board.anyBoardWin(X))
+    assertFalse(board.anyBoardWin(O))
+  }
 }
