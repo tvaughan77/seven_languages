@@ -1,6 +1,5 @@
 package com.opower.ttt
 
-//import CellState
 import com.opower.ttt.CellState._
 
 /**
@@ -20,7 +19,7 @@ class Board(board: Array[Array[CellState]]) {
     board.deep.mkString("\n")
   }
   
-
+  def at(x: Int, y: Int) : CellState = board(x)(y)
 }
 
 object Board {

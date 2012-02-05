@@ -35,8 +35,17 @@ class BoardSuite extends FunSuite {
   }
   
   test("construct a board with a vararg list of Strings") {
-    val board = Board.fromStrings("X", "_", "_", "O", "X", "_", "O", "X", "_")
+    val board = Board.fromStrings("X", "_", "O", "O", "X", "_", "O", "X", "_")
     println(board)
+    assertEquals(CellState.X,     board.at(0, 0))
+    assertEquals(CellState.BLANK, board.at(0, 1))
+    assertEquals(CellState.O,     board.at(0, 2))
+    assertEquals(CellState.O,     board.at(1, 0))
+    assertEquals(CellState.X,     board.at(1, 1))
+    assertEquals(CellState.BLANK, board.at(1, 2))
+    assertEquals(CellState.O,     board.at(2, 0))
+    assertEquals(CellState.X,     board.at(2, 1))
+    assertEquals(CellState.BLANK, board.at(2, 2))
   }
   
   test("construct a board with invalid string representations of cells") {
