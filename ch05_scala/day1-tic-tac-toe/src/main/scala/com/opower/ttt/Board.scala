@@ -3,19 +3,13 @@ package com.opower.ttt
 import com.opower.ttt.CellState._
 
 /**
- * Represents a Tic-Tac-Toe board
+ * Represents a Tic-Tac-Toe board and provides methods to detect winning states for either "X" or "O"
  */
 class Board(state: Array[Array[CellState]]) {
   
   require(state.length == Board.DIM)
   require(state(0).length == Board.DIM)
   
-  
-  override def toString() : String = { 
-    state.deep.mkString("\n")
-  }
-  
-  def at(x: Int, y: Int) : CellState = state(x)(y)
   
   /*
    * Checks to see if the board is in a winning state for player {@code player}
@@ -57,9 +51,17 @@ class Board(state: Array[Array[CellState]]) {
     require(player != CellState.BLANK)  // don't ask if "blank" wins
     tranche forall (_ == player)
   }
+  
+  def at(x: Int, y: Int) : CellState = state(x)(y)
+  
+  override def toString() : String = { 
+    state.deep.mkString("\n")
+  }
 }
 
-
+/**
+ * Static helpers and fields for the Board class
+ */
 object Board {
   def DIM = 3;
   
