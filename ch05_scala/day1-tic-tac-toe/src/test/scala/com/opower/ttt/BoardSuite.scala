@@ -9,12 +9,13 @@ import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.FunSuite
+import com.opower.ttt.CellState._
 
 @RunWith(classOf[JUnitRunner])
 class BoardSuite extends FunSuite {
   
   test("happy path construction") {
-    val board = new Board(Array.fill(3,3)(CellState.BLANK))
+    val board = new Board(Array.fill(3,3)(BLANK))
     assertNotNull(board)
     assertNotNull(board.toString)
   }
@@ -23,29 +24,29 @@ class BoardSuite extends FunSuite {
   // A tic-tac-toe board needs to be a 3x3 grid
   test("construction should fail when first array index isn't == 3") {
     intercept[IllegalArgumentException] {
-      new Board(Array.fill(1, 3)(CellState.BLANK))
+      new Board(Array.fill(1, 3)(BLANK))
     }
   }
   
   // A tic-tac-toe board needs to be a 3x3 grid
   test("construction should fail when second array index isn't == 3") {
     intercept[IllegalArgumentException] {
-      new Board(Array.fill(3, 99)(CellState.BLANK))
+      new Board(Array.fill(3, 99)(BLANK))
     }
   }
   
   test("construct a board with a vararg list of Strings") {
     val board = Board.fromStrings("X", "_", "O", "O", "X", "_", "O", "X", "_")
     println(board)
-    assertEquals(CellState.X,     board.at(0, 0))
-    assertEquals(CellState.BLANK, board.at(0, 1))
-    assertEquals(CellState.O,     board.at(0, 2))
-    assertEquals(CellState.O,     board.at(1, 0))
-    assertEquals(CellState.X,     board.at(1, 1))
-    assertEquals(CellState.BLANK, board.at(1, 2))
-    assertEquals(CellState.O,     board.at(2, 0))
-    assertEquals(CellState.X,     board.at(2, 1))
-    assertEquals(CellState.BLANK, board.at(2, 2))
+    assertEquals(X,     board.at(0, 0))
+    assertEquals(BLANK, board.at(0, 1))
+    assertEquals(O,     board.at(0, 2))
+    assertEquals(O,     board.at(1, 0))
+    assertEquals(X,     board.at(1, 1))
+    assertEquals(BLANK, board.at(1, 2))
+    assertEquals(O,     board.at(2, 0))
+    assertEquals(X,     board.at(2, 1))
+    assertEquals(BLANK, board.at(2, 2))
   }
   
   test("construct a board with invalid string representations of cells") {
@@ -62,31 +63,31 @@ class BoardSuite extends FunSuite {
   
   test("a tranche is considered winning if all elements in a tranche are the same, but not for the case of BLANKS") {
     val board = Board.blankBoard
-    assertTrue(board.anyTrancheWin(CellState.X, Array(CellState.X, CellState.X, CellState.X)))
-    assertTrue(board.anyTrancheWin(CellState.O, Array(CellState.O, CellState.O, CellState.O)))
-    assertFalse(board.anyTrancheWin(CellState.O, Array(CellState.X, CellState.X, CellState.X)))
-    assertFalse(board.anyTrancheWin(CellState.X, Array(CellState.O, CellState.O, CellState.O)))
-    assertFalse(board.anyTrancheWin(CellState.X, Array(CellState.X, CellState.X, CellState.O)))
-    assertFalse(board.anyTrancheWin(CellState.O, Array(CellState.X, CellState.O, CellState.O)))
+    assertTrue(board.anyTrancheWin(X,  Array(X, X, X)))
+    assertTrue(board.anyTrancheWin(O,  Array(O, O, O)))
+    assertFalse(board.anyTrancheWin(O, Array(X, X, X)))
+    assertFalse(board.anyTrancheWin(X, Array(O, O, O)))
+    assertFalse(board.anyTrancheWin(X, Array(X, X, O)))
+    assertFalse(board.anyTrancheWin(O, Array(X, O, O)))
   }
   
   test("it's an exception to ask if 'blank' is winning a trance") {
     val board = Board.blankBoard
     intercept[IllegalArgumentException] {
-      board.anyTrancheWin(CellState.BLANK, Array(CellState.X, CellState.X, CellState.X))
+      board.anyTrancheWin(BLANK, Array(X, X, X))
     }
   }
   
   test("it's an exception to pass anything but a 3-element array to anyTrancheWin()") {
     val board = Board.blankBoard
     intercept[IllegalArgumentException] {
-      board.anyTrancheWin(CellState.X, Array(CellState.X, CellState.X, CellState.O, CellState.O))
+      board.anyTrancheWin(X, Array(X, X, O, O))
     }
   }
   
   test("anyRowWin with the 3rd row being in a winning state for player X") {
     val board = Board.fromStrings("_", "_", "O", "X", "O", "O", "X", "X", "X")
-    assertTrue(board.anyRowWin(CellState.X))
-    assertFalse(board.anyRowWin(CellState.O))
+    assertTrue(board.anyRowWin(X))
+    assertFalse(board.anyRowWin(O))
   }
 }
