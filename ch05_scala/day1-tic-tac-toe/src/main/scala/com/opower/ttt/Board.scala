@@ -5,6 +5,8 @@ package com.opower.ttt
  */
 class Board(board: Array[Array[String]]) {
   
+  require(board.length == 3)
+  
   override def toString() : String = { 
     board.deep.mkString("\n")
   }
