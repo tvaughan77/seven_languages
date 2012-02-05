@@ -35,4 +35,9 @@ class BoardSuite extends FunSuite {
       new Board(Array.fill(3, 99)(CellState.BLANK))
     }
   }
+  
+  test("construct a board with a vararg list of Strings") {
+    val board = Board.fromStrings("X", "_", "_", "O", "X", "_", "O", "X", "_")
+    println(board)
+  }
 }
