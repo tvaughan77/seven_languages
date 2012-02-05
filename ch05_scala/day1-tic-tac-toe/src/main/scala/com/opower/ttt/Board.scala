@@ -5,25 +5,38 @@ import com.opower.ttt.CellState._
 /**
  * Represents a Tic-Tac-Toe board
  */
-class Board(board: Array[Array[CellState]]) {
+class Board(state: Array[Array[CellState]]) {
   
-  require(board.length == Board.DIM)
-  require(board(0).length == Board.DIM)
+  require(state.length == Board.DIM)
+  require(state(0).length == Board.DIM)
   
-  
-//  private def anyColWin: Boolean {
-//    
-//  }
   
   override def toString() : String = { 
-    board.deep.mkString("\n")
+    state.deep.mkString("\n")
   }
   
-  def at(x: Int, y: Int) : CellState = board(x)(y)
+  def at(x: Int, y: Int) : CellState = state(x)(y)
+  
+    
+  def anyRowWin(player: CellState) = {
+    state exists (row => anyTrancheWin(player, row))
+  }
+  
+  /*
+   * True, if the tranche is size 3 and all elements are non-BLANK and the same as player
+   */
+  def anyTrancheWin(player: CellState, tranche: Array[CellState]) = {
+    require(tranche.length == Board.DIM)
+    require(player != CellState.BLANK)  // don't ask if "blank" wins
+    tranche forall (_ == player)
+  }
 }
+
 
 object Board {
   def DIM = 3;
+  
+  def blankBoard() : Board = new Board(Array.fill(DIM, DIM)(CellState.BLANK))
   
   def fromCells(cells: CellState*) : Board = new Board(convertCellsListTo2DimArray(cells: _*))
   

@@ -59,4 +59,34 @@ class BoardSuite extends FunSuite {
       Board.fromStrings("X", "_", "O")
     }
   }
+  
+  test("a tranche is considered winning if all elements in a tranche are the same, but not for the case of BLANKS") {
+    val board = Board.blankBoard
+    assertTrue(board.anyTrancheWin(CellState.X, Array(CellState.X, CellState.X, CellState.X)))
+    assertTrue(board.anyTrancheWin(CellState.O, Array(CellState.O, CellState.O, CellState.O)))
+    assertFalse(board.anyTrancheWin(CellState.O, Array(CellState.X, CellState.X, CellState.X)))
+    assertFalse(board.anyTrancheWin(CellState.X, Array(CellState.O, CellState.O, CellState.O)))
+    assertFalse(board.anyTrancheWin(CellState.X, Array(CellState.X, CellState.X, CellState.O)))
+    assertFalse(board.anyTrancheWin(CellState.O, Array(CellState.X, CellState.O, CellState.O)))
+  }
+  
+  test("it's an exception to ask if 'blank' is winning a trance") {
+    val board = Board.blankBoard
+    intercept[IllegalArgumentException] {
+      board.anyTrancheWin(CellState.BLANK, Array(CellState.X, CellState.X, CellState.X))
+    }
+  }
+  
+  test("it's an exception to pass anything but a 3-element array to anyTrancheWin()") {
+    val board = Board.blankBoard
+    intercept[IllegalArgumentException] {
+      board.anyTrancheWin(CellState.X, Array(CellState.X, CellState.X, CellState.O, CellState.O))
+    }
+  }
+  
+  test("anyRowWin with the 3rd row being in a winning state for player X") {
+    val board = Board.fromStrings("_", "_", "O", "X", "O", "O", "X", "X", "X")
+    assertTrue(board.anyRowWin(CellState.X))
+    assertFalse(board.anyRowWin(CellState.O))
+  }
 }
