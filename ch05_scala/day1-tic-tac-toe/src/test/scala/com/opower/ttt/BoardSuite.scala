@@ -40,4 +40,16 @@ class BoardSuite extends FunSuite {
     val board = Board.fromStrings("X", "_", "_", "O", "X", "_", "O", "X", "_")
     println(board)
   }
+  
+  test("construct a board with invalid string representations of cells") {
+    intercept[NoSuchElementException] {
+      Board.fromStrings("A", "B", "C", "D", "E", "F", "G", "H", "I")
+    }
+  }
+  
+  test("construct a board with an invalid number of valid cell strings") {
+    intercept[IllegalArgumentException] {
+      Board.fromStrings("X", "_", "O")
+    }
+  }
 }
