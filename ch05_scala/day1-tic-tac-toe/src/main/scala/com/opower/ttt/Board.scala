@@ -44,15 +44,9 @@ object Board {
   private def convertCellsListTo2DimArray(cells: CellState*) = {
     require(cells.length == DIM * DIM)
     
-    val board = Array.fill(DIM, DIM)(CellState.BLANK)
-    
-    // TODO look in to using "range" instead (http://daily-scala.blogspot.com/2009/11/varargs.html)
-    for(i <- 0 until DIM) {
-      for(j <- 0 until DIM) {
-        board(i)(j) = cells(i*DIM + j)
-      }
-    }
-    
-    board
+    // cells.grouped(DIM) turns a 9-length CellState array into an Iterator[List[CellState]] (where each list is size = 3)
+    // iterator.toArray turns the Iterator into an array, so now we've got type Array[List[CellState]]
+    // then we map the Array[List[CellState]] to the .toArray method to get our expected type of Array[Array[CellState]]
+    cells.grouped(DIM).toArray map (_.toArray)
   }
 }

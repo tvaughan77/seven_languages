@@ -17,8 +17,6 @@ class BoardSuite extends FunSuite {
     val board = new Board(Array.fill(3,3)(CellState.BLANK))
     assertNotNull(board)
     assertNotNull(board.toString)
-
-    println(board.toString)
   }
   
   
