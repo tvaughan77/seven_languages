@@ -8,9 +8,11 @@ package com.opower.censor
 trait Censor extends RawString {
 
   abstract override def getContent() : String = {
-    val rawContent = super.getContent()
-//    dictionary.foreach
-    rawContent
+    var censoredContent = super.getContent
+    dictionary.foreach{ 
+      (entry: (String, String)) => censoredContent = censoredContent.replace(entry._1, entry._2)
+    }
+    censoredContent
   }
   
   val defaultDictionary = Map("fucked" -> "messed",
