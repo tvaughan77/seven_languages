@@ -35,7 +35,7 @@ def getPageSizeConcurrently() = {
     actor { caller ! (url, PageLoader.getPageSize(url))}
   }
   
-  for(i <- 1 to urls.size) {
+  for(url <- urls) {
     receive {
       case(url, size) => println("Size for " + url + ": " + size)
     }
