@@ -13,4 +13,10 @@ class CensoredStringWithCustomDictionarySuite extends FunSuite {
     val censoredString = new CensoredStringWithCustomDictionary("Hello, fucked up world!")
     assertEquals("Hello, jacked up world!", censoredString.getContent)
   }
+  
+  test("Multiple cursing gets filtered") {
+    val censoredString = new CensoredStringWithCustomDictionary("This shitty beef stroganoff smells nasty!")
+    assertEquals("This rotten beef stroganoff smells Yoni's Mom-ish!", censoredString.getContent)
+  }
+  
 }
