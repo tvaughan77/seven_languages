@@ -19,6 +19,9 @@ object FoldLeft {
 
   
   def computeTotalSizeOfStringArray(strings: Array[String]): Int = {
-    (0 /: strings) {(total_size, string) => total_size + string.size}
+    if(strings == null) 
+      0 
+    else 
+      (0 /: strings) {(total_size, string) => total_size + string.size}
   }
 }
