@@ -7,7 +7,7 @@ import org.junit.Assert._
 
 
 @RunWith(classOf[JUnitRunner])
-class CensorSuite extends FunSuite {
+class CensoredStringSuite extends FunSuite {
 
   test("Basic censor suite testing") {
     val basicString = new RawString("Hello, fucked up world!")

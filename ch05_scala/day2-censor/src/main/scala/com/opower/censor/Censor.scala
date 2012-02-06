@@ -15,9 +15,9 @@ trait Censor extends RawString {
     censoredContent
   }
   
-  val defaultDictionary = Map("fucked" -> "messed",
-                              "shitty" -> "unfortunate",
-                              "nasty"  -> "Yoni's Mom-ish")
+  private val defaultDictionary = Map("fucked" -> "messed",
+                                      "shitty" -> "unfortunate",
+                                      "nasty"  -> "Yoni's Mom-ish")
   
   def dictionary() : Map[String, String] = { defaultDictionary }
 }
