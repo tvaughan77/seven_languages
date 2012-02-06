@@ -1,6 +1,7 @@
 package com.opower
 
 import com.opower.ttt._
+import scala.io.Source
 
 /**
  * "Driver" class for reading in the state of a tic-tac-toe board and making a determination of whether or not any player
@@ -59,8 +60,16 @@ object TicTacToeChecker {
     
   }
   
+  /*
+   * Given a filename:
+   * 1) open the file and get a List of the lines in that file
+   * 2) add each element of the list to a string builder
+   * 3) filter out the spaces
+   * 4) convert the 
+   */
   def parseBoardStringsFromFile(filename : String) : Array[String] = {
-    // TODO complete this
-    Array("_", "_", "_", "_", "_", "_", "_", "_", "_")
+    val buffer = new StringBuilder
+    Source.fromFile(filename).getLines.toList addString(buffer)          // We have something like buffer = "X _ OX O XO X _"
+    buffer.filter(_ != ' ').toArray map {_.toString}                     // .toArray returns Array[Char], so cast it
   }
 }
