@@ -25,6 +25,7 @@
         <module>scala-parent</module>
         <module>day1-tic-tac-toe</module>
         <module>day2-foldLeft</module>
+        <module>day2-censor</module>
     </modules>
 
 </project>
