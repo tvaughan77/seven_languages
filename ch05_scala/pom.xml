@@ -27,6 +27,7 @@
         <module>day2-foldLeft</module>
         <module>day2-censor</module>
         <module>day3-sizer</module>
+        <module>actors-ping-pong</module>
     </modules>
 
 </project>
