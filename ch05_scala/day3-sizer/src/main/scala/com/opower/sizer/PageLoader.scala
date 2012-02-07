@@ -12,10 +12,10 @@ object PageLoader {
   }
   
   /*
-   * Returns an integer number of times that an {@code "<a href=\"...\">"} tags is encountered in {@code line}
+   * Returns an integer number of times that an {@code "<a>"} tags is encountered in {@code line}
    */
   def countHrefsInLine(line: Elem): Int = {
-    0
+    (line \\ "a").length
   }
 
 }
