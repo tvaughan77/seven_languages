@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.opower</groupId>
-    <artifactId>chapter04-scala-parent</artifactId>
+    <artifactId>chapter05-scala-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Chapter04 Scala Container Project</name>
+    <name>Chapter05 Scala Container Project</name>
     <url>http://opower.com/</url>
     <build>
         <plugins>
