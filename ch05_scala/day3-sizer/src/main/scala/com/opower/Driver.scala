@@ -47,7 +47,9 @@ object Driver {
     val caller = self
 
     for(url <- urls) {
-      actor { caller ! (url, PageLoader.getPageSize(url))}
+      actor { 
+        caller ! (url, PageLoader.getPageSize(url))
+      }
     }
 
     for(url <- urls) {
