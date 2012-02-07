@@ -38,4 +38,10 @@ class SizerSuite extends FunSuite {
     assertEquals(3, PageLoader.countHrefsInLine(html))
   }
   
+  test("count the number of hrefs on a page") {
+    val numLinks = PageLoader.getNumLinksOnPage("http://www.google.com")
+    assertTrue(0 < numLinks)
+    println("The number of anchor tags on google's homepage is " + numLinks)
+  }
+  
 }
