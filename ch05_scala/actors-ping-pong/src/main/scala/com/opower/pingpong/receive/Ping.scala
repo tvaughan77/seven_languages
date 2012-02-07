@@ -10,6 +10,7 @@ class Ping(count: Int, pong: Actor) extends Actor {
   def act() {
     
     var pingsLeft = count - 1
+    println("Starting receive-ping at " + System.nanoTime)
     pong ! Ping
     
     while (true) {
@@ -18,7 +19,7 @@ class Ping(count: Int, pong: Actor) extends Actor {
       
         case Pong =>
         
-          if (pingsLeft % 1000 == 0)
+          if (pingsLeft % 10000 == 0)
             println("Ping: pong")
           
           if (pingsLeft > 0) {
@@ -28,6 +29,7 @@ class Ping(count: Int, pong: Actor) extends Actor {
           } else {
             println("Ping: stop")
             pong ! Stop
+            println("Stopping receive-ping at " + System.nanoTime)
             exit()
           }
     
