@@ -1,6 +1,7 @@
 package com.opower.censor
 
 import scala.io.Source
+import scala.collection.mutable
 
 /**
  * Just like CensoredString, but provides its own dictionary to do the curse-word-filtering
@@ -10,7 +11,7 @@ class CensoredStringWithCustomDictionary(override val content:String) extends Ra
   private val censorshipDictionaryFile: String = "custom_dictionary.txt"
 
   override def dictionary() : Map[String, String] = { 
-    val myDictionary = scala.collection.mutable.Map[String, String]()
+    val myDictionary = mutable.Map.empty[String, String]
     
     val dictList = Source.fromFile(censorshipDictionaryFile).getLines.toList
     dictList.foreach{(line) => 
