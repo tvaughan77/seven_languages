@@ -36,7 +36,8 @@ object Driver {
    */
   def getPageSizeSequentially() = {
     for(url <- urls) {
-      println("Size for " + url + ": " + PageLoader.getPageSize(url))
+      val pageInfo = PageLoader.getPageInfo(url)
+      println("Size for " + url + ": " + pageInfo._1 + " and the number of links on the page is: " + pageInfo._2)
     }
   }
 
@@ -48,13 +49,13 @@ object Driver {
 
     for(url <- urls) {
       actor { 
-        caller ! (url, PageLoader.getPageSize(url))
+        caller ! (url, PageLoader.getPageInfo(url))
       }
     }
 
     for(url <- urls) {
       receive {
-        case(url, size) => println("Size for " + url + ": " + size)
+        case(url, (size, numLinks)) => println("Size for " + url + ": " + size + " and numLinks: " + numLinks)
       }
     }
   }

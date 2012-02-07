@@ -3,8 +3,21 @@ package com.opower.sizer
 import scala.io.Source
 import scala.xml._
 
+/**
+ * FIXME - the getPageInfo method ends up requesting the same web content twice because I can't shoe-horn a scala.io.Source
+ * object into a scala.xml.package.InputSource object
+ */
 object PageLoader {
-  def getPageSize(url: String) = scala.io.Source.fromURL(url).mkString.length
+  
+  private val adapter = new scala.xml.parsing.NoBindingFactoryAdapter
+  private val parserFactory = new org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
+  
+  def getPageInfo(url: String) = {
+    (getPageSize(url), getNumLinksOnPage(url))
+  }
+  
+  def getPageSize(url: String): Int = { scala.io.Source.fromURL(url).mkString.length }
+  
   
   /**
    * It'd be nice to use the standard scala Source.fromURL(url).toLines and maybe parse each line into an XML Elem or Node, but
@@ -17,13 +30,12 @@ object PageLoader {
    * something on their side that makes double checking the results with a different browser kind of difficult.
    */
   def getNumLinksOnPage(url: String) = {
-    val parserFactory = new org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
     val parser = parserFactory.newSAXParser()
     val source = new org.xml.sax.InputSource(url)
-    val adapter = new scala.xml.parsing.NoBindingFactoryAdapter
     
     countHrefsInLine(adapter.loadXML(source, parser))
   }
+  
   
   /*
    * Returns an integer number of times that an {@code "<a>"} tags is encountered in {@code line}
