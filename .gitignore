@@ -1,4 +1,5 @@
 .classpath
 .project
+*.beam
 .settings/
 target/
